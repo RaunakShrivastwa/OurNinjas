@@ -2,7 +2,9 @@ import User from "../model/User.js";
 import PasswordEncrypt from '../config/PasswordEncrypt.js'
 import { LocalStorage } from 'node-localstorage';
 import Mail from '../Mailer/RegisterEmail.js';
-import Course from '../model/CourseSchema.js'
+import Course from '../model/CourseSchema.js';
+import dotenv from 'dotenv';
+dotenv.config();
 export default class userController {
 
     // config  =  new PasswordEncrypt();
@@ -10,8 +12,7 @@ export default class userController {
 
     // Adding USer to DB
     addUser = async (req, res) => {
-        const file = req.body.avtar;
-        const { userName, userEmail, userPassword, userDOB, userMob, userAddress, userProof, userBio, userRole, enroll } = req.body;
+        const { userName, userEmail, userPassword, userDOB, userMob, userAddress, userProof, userBio, enroll,profile} = req.body;
         const data = {
             userName,
             userEmail,
@@ -21,9 +22,13 @@ export default class userController {
             userAddress,
             userProof,
             userBio,
-            userRole,
-            enroll
+            userRole:'student',
+            enroll,
+            profile
         }
+
+        console.log(data);
+
         if (!this.isValidPassword(userPassword)) {
             return res.status(400).json({ error: 'Password must have at least one letter (uppercase or lowercase), one digit, and one special symbol' });
         }
@@ -38,7 +43,6 @@ export default class userController {
         }
         const userJsonString = JSON.stringify(data);
         this.localStorage.setItem('TempData', userJsonString);
-        console.log(data);
         Mail.sendMail(data);
         return res.json(`Varify Your Identity , We send you 6 digits OTP (Expires within 2 minutes) to ${req.body.userEmail}`);
     }
@@ -121,9 +125,9 @@ export default class userController {
 
     varifyUser = async (req, res) => {
         const OTP = req.body.OTP;
+        
         const temp = this.localStorage.getItem('TempData');
         const data = JSON.parse(temp);
-        console.log(data);
         const currentTime = new Date().getMinutes();
 
         if (Math.abs(currentTime - data.time) < 2) {
@@ -132,14 +136,14 @@ export default class userController {
                 delete data.time;
                 const user = await User.create(data);
                 this.localStorage.removeItem('TempData');
-                return res.json({ Message: `Welcome ${user.userName} to EduHub`, user })
+                return res.json(user)
             } else {
-                return res.json("Not Valide")
+                return res.json({flag:'true'})
             }
         } else {
-            return res.json(`OOPS ${data.userName} Your OTP Expired, Resend Now`)
+            console.log("expires");
+            return res.json({expire:true})
         }
-
 
     }
 
@@ -147,6 +151,7 @@ export default class userController {
         try {
             const temp = this.localStorage.getItem('TempData');
             const data = JSON.parse(temp);
+            console.log(data);
             const currentTime = new Date();
             data.time = currentTime.getMinutes();
             data.OTP = Math.floor(100000 + Math.random() * 900000);
@@ -189,6 +194,11 @@ export default class userController {
         } catch (err) {
             return console.log("There is Error While You Assign Course!!!!!!!!", err);
         }
+    }
+
+    // login
+    userLogin = async (req,res)=>{
+        return res.status(200).json(req.user);
     }
 
 }

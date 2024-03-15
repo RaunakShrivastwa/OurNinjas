@@ -7,13 +7,6 @@ const UserSchema = new mongoose.Schema({
     userEmail:{
         type:String,
         required:true,
-        unique:true,
-        validate: {
-            validator: function(v) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-            },
-            message: props => `${props.value} is not a valid email address!`
-        }
         
     },
     userPassword:{
@@ -41,7 +34,6 @@ const UserSchema = new mongoose.Schema({
     },
     userProof:{
         type:String,
-        required:true
         
     },
     userBio:{
@@ -49,7 +41,6 @@ const UserSchema = new mongoose.Schema({
     },
     userRole:{
        type:String,
-       required:true
        
     },
     enroll:{
@@ -72,7 +63,10 @@ const UserSchema = new mongoose.Schema({
     }],
     referal:{
         
-    }   
+    },
+    profile:{
+        type:String
+    },
 },{timestamps:true});
 
 const User = mongoose.model("User",UserSchema);

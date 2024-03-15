@@ -3,6 +3,7 @@ import nodemailer from "../config/NodeMailer.js";
 export default class RegisterEmail{
 
     static sendMail = (user)=>{
+      console.log(user);
         nodemailer.transpoter.sendMail({
             from:'javaprogramming58@gmail.com',
             to: user.userEmail,
