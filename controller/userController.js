@@ -4,6 +4,7 @@ import { LocalStorage } from 'node-localstorage';
 import Mail from '../Mailer/RegisterEmail.js';
 import Course from '../model/CourseSchema.js';
 import dotenv from 'dotenv';
+import cookie from 'cookie'
 dotenv.config();
 export default class userController {
 
@@ -200,5 +201,19 @@ export default class userController {
     userLogin = async (req,res)=>{
         return res.status(200).json(req.user);
     }
+
+    // google
+
+    googleLogin = async (req, res) => {
+        const loginData = req.user;
+        return res.redirect(`http://localhost:3000/ninja/add/${loginData.userEmail}`);
+    };
+
+
+    // googleLogin = async (req,res)=>{
+    //     const loginData = req.user;
+        
+    //     return res.status(200).json()
+    // }
 
 }

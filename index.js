@@ -5,13 +5,14 @@ import router from './router/APIgateWay.js';
 import cors from 'cors';
 import session from 'express-session';
 import passportLocal from './config/Auth/passport-Local.js';
+import passportGoogle from './security/google-auth2.js';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
-app.use(cors('*'));
+app.use(cors());
 
 app.use(session({
     name: 'Backend',

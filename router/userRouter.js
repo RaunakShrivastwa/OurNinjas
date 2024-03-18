@@ -18,5 +18,8 @@ router.get('/allDetals/Information',user.getAllDetails);
 // 617
 router.post('/login',passport.authenticate('local', {failureRedirect:'/user/failed',session:true }),user.userLogin)
 
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: (req, res) => { return res.json({ Error: 'error' }) } }), user.googleLogin);
+
 
 export default router;
