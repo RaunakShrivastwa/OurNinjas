@@ -41,5 +41,5 @@ app.listen(PORT,(err)=>{
     if(err){
         return console.log("There  is Error ",err);
     }
-    console.log(`Server Up and Running at  PORT ${PORT}`);
+    console.log(`Server Up and Running at  PORT ${PORT} successfully`);
 });
