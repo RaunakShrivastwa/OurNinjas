@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const CourseCategory = ["popular", "livecourse", "self", "fundamental"];
 const CourseSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -15,7 +15,10 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    score: {
+    marketPrice:{
+        type:String
+    },
+    sellPrice: {
         type: Number,
         required: true
     },
@@ -27,7 +30,23 @@ const CourseSchema = new mongoose.Schema({
     modules:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Module'
-    }]
+    }],
+    standred:{
+        type:String,
+        enum: CourseCategory,
+    },
+    tag: {
+        type: String,
+    },
+    syllabus:{
+        type:String
+    },
+    introVideo:{
+        type:String
+    },
+    courseImage:{
+        type:String
+    }
 }, {
     timestamps: true
 })

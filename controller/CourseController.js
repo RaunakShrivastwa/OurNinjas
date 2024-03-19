@@ -6,26 +6,14 @@ import SubTopic from '../model/subTopic/SubTopic.js';
 export default class CourseController {
     async createCourse(req, res) {
         try {
-            const course = await Course.findOne({ name: req.body.name });
-
-            if (course) {
-                return res.json({
-                    "message": "Already Available",
-                    course
-                });
-            } else {
-                const courseCreated = await Course.create({ ...req.body });
-                return res.json({
-                    "message": "Course Created Successfully",
-                    courseCreated
-                });
+            const course = await Course.findOne({name: req.body.name });
+            if(course){
+                return res.json({Error:'Course Already Exist'})
             }
+          const cData = await  Course.create(req.body);
+          return res.status(201).json(cData)
         } catch (error) {
-            console.log(error);
-            return res.json({
-                "message": "Something went wrong",
-                error
-            });
+           return console.log(error);``
         }
     }
 
