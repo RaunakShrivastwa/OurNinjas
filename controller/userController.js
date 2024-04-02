@@ -224,7 +224,7 @@ export default class userController {
 
     googleLogin = async (req, res) => {
         const loginData = req.user;
-        return res.redirect(`http://localhost:3000/ninja/add/${loginData.userEmail}`);
+        return res.redirect(`https://ninjasteam.vercel.app/ninja/add/${loginData.userEmail}`);
     };
 
 
