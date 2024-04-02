@@ -26,6 +26,9 @@ export default class ResumeController {
                     "message": "User not found. So, we can't add resume"
                 })
             }
+
+
+            
         } catch (error) {
             return res.status(501).json({
                 "message": "Add Resume we got error",

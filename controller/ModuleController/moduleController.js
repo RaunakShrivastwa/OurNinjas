@@ -27,12 +27,26 @@ export default class moduleController{
     }
 
     getSingleModule = async (req,res)=>{
+        console.log(req.body);
         try{
-             return res.json(Modules.findById(req.params.id))
+             return res.json(await Modules.findOne(
+                {
+                    enrollCourse:req.body.enrollCourse,
+                    milestone:req.body.milestone
+                }).populate('chapter'))
         }catch(err){
             return console.log("There is Error While Fetching Single Module",err);
         }
     }
+
+    getSingleModuleById = async (req,res)=>{
+        try{
+             return res.json(await Modules.findById(req.params.id).populate('chapter'))
+        }catch(err){
+            return console.log("There is Error While Fetching Single Module",err);
+        }
+    }
+
 
     deleteModule = async (req,res)=>{
         try{

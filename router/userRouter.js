@@ -15,6 +15,7 @@ router.post('/update/:userEmail',user.updateUser);
 router.get('/fetchUser/:userEmail',user.fetchSingleUser);
 router.post('/course/assign',user.AssignCourse);
 router.get('/allDetals/Information',user.getAllDetails);
+router.get('/all/:id',user.fetchAllDetails)
 // 617
 router.post('/login',passport.authenticate('local', {failureRedirect:'/user/failed',session:true }),user.userLogin)
 

@@ -19,4 +19,12 @@ export default class SubTopicController{
             return console.log("There is Error While Create SubTopic",err);
         }
     }
+
+    getSubTopic =  async (req,res)=>{
+        try{
+                return res.json(await SubTopic.find({Chapter:"What is JavaScript?"}))
+        }catch(err){
+            return console.log("THere us Error ",err);
+        }
+    }
 }

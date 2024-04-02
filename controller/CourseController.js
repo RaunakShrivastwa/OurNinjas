@@ -19,7 +19,7 @@ export default class CourseController {
 
     async getAllCourse(req, res) {
         try {
-            const course = await Course.find({});
+            const course = await Course.find({}).sort('-createdAt');
 
             if (course) {
                 return res.json({
@@ -42,7 +42,7 @@ export default class CourseController {
 
     async getCourseByName(req, res) {
         try {
-            const courseInfo = await Course.findOne({ name: req.params.courseName });
+            const courseInfo = await Course.findOne({ name: req.params.courseName }).populate('modules');
             if (courseInfo) {
                 return res.json({
                     "message": "Course fetch successfully ..... ",
@@ -60,6 +60,8 @@ export default class CourseController {
             });
         }
     }
+
+
 
     async updateCourse(req, res) {
         try {
@@ -82,6 +84,17 @@ export default class CourseController {
             });
         }
     }
+
+    async getUpcomingCourse(req,res){
+        try{
+            const course = await Course.find({status:'pending'});
+            return res.status(200).json(course);
+        }catch(err){
+            return console.log("There is Error ",err);
+        }
+    }
+
+    
 
      deleteCourse = async (req, res) => {
         const courseName = req.params.name;

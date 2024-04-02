@@ -61,6 +61,12 @@ const UserSchema = new mongoose.Schema({
     profile:{
         type:String
     },
+    status:{
+        type:String
+    },
+    startDate:{
+        type:String
+    }
 },{timestamps:true});
 
 const User = mongoose.model("User",UserSchema);

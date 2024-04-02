@@ -93,6 +93,7 @@ export default class userController {
             return console.log("There is Error while Deleting User", err);
         }
     }
+    
     // Update User 
     updateUser = async (req, res) => {
         try {
@@ -200,6 +201,23 @@ export default class userController {
     // login
     userLogin = async (req,res)=>{
         return res.status(200).json(req.user);
+    }
+
+    fetchAllDetails = async (req,res)=>{
+        try{
+            const users = await User.findById(req.params.id).populate({
+                path: 'courses',
+                populate: {
+                    path: 'modules',
+                    populate: {
+                        path: 'chapter'
+                    }
+                }
+            });
+            return res.status(200).json(users);
+        }catch(err){
+            return console.log("there us Error ",err);
+        }
     }
 
     // google
