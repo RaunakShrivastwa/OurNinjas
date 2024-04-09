@@ -4,7 +4,8 @@ import { LocalStorage } from 'node-localstorage';
 import Mail from '../Mailer/RegisterEmail.js';
 import Course from '../model/CourseSchema.js';
 import dotenv from 'dotenv';
-import cookie from 'cookie'
+import cookie from 'cookie';
+import SubTopic from "../model/subTopic/SubTopic.js";
 dotenv.config();
 export default class userController {
 
@@ -200,6 +201,7 @@ export default class userController {
 
     // login
     userLogin = async (req,res)=>{
+        console.log(req.user);
         return res.status(200).json(req.user);
     }
 
@@ -217,6 +219,25 @@ export default class userController {
             return res.status(200).json(users);
         }catch(err){
             return console.log("there us Error ",err);
+        }
+    }
+
+    // set video Status
+    setStatus = async (req,res)=>{
+        console.log(req.body);
+        const {userId,subTopic} = req.body;
+        try{
+             const user = await User.findById(userId);
+             if(user){
+                const topic  = await SubTopic.findById(subTopic);
+                if(topic){
+                    user.subtopic.push(topic);
+                    user.save();
+                }
+             }
+             return res.json(user)
+        }catch(err){
+            return console.log("THere is Error ",err);
         }
     }
 

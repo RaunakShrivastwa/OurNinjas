@@ -41,7 +41,7 @@ export default class moduleController{
 
     getSingleModuleById = async (req,res)=>{
         try{
-             return res.json(await Modules.findById(req.params.id).populate('chapter'))
+             return res.json(await Modules.findById(req.params.id).populate('mentor').populate('chapter'))
         }catch(err){
             return console.log("There is Error While Fetching Single Module",err);
         }

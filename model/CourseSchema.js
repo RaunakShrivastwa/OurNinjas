@@ -46,7 +46,10 @@ const CourseSchema = new mongoose.Schema({
     },
     courseImage:{
         type:String
-    }
+    },
+    status:{
+        type:String
+    },
 }, {
     timestamps: true
 })

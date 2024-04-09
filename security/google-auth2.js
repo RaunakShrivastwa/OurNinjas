@@ -6,10 +6,10 @@ import User  from '../model/User.js';
 passport.use(new GoogleAuthStratgey({
     clientID: '608333323272-8lh49vu1drbo85s9amt8tc2fiq1qiias.apps.googleusercontent.com',
     clientSecret: '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',
-    callbackURL: 'https://ourninjas.onrender.com/user/auth/google/callback'
+    callbackURL: 'http://localhost:4000/user/auth/google/callback'
 },
 function (accessToken, refreshToken, profile, done) {
-    console.log(profile)
+    // console.log(profile)
     User.findOne({userEmail: profile.emails[0].value }).then(user => {
         console.log(profile)
         console.log(profile.photos[0].value)

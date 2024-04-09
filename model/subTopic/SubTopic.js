@@ -16,7 +16,8 @@ const SubTopicSchema = new mongoose.Schema({
     video_URL:{
         type:String,
         required:true
-    }
+    },
+    
 },{timestamps:true});
 
 const SubTopic = mongoose.model("SubTopic",SubTopicSchema);

@@ -1,5 +1,6 @@
 import Chapter from "../../model/Chapters/Chapter.js";
 import SubTopic from "../../model/subTopic/SubTopic.js";
+import Modules from "../../model/Modules/Module.js";
 
 
 export default class SubTopicController{
@@ -21,8 +22,12 @@ export default class SubTopicController{
     }
 
     getSubTopic =  async (req,res)=>{
+        // console.log(req.params.name);
         try{
-                return res.json(await SubTopic.find({Chapter:"What is JavaScript?"}))
+                 const chapter = await  Chapter.find({name:req.params.name});
+                 const module = await Modules.findOne({name:chapter[0].moduleName}).populate('mentor')
+                 const subTopic = await SubTopic.find({Chapter:chapter[0].name})
+                return res.json({subTopic:subTopic,Mentor:module})
         }catch(err){
             return console.log("THere us Error ",err);
         }

@@ -64,6 +64,12 @@ const UserSchema = new mongoose.Schema({
     status:{
         type:String
     },
+    subtopic:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'SubTopic'
+        }
+    ],
     startDate:{
         type:String
     }
