@@ -6,7 +6,7 @@ import User from '../model/Student.js';
 passport.use(new GithubStratgey({
     clientID: '90f197eb90f33e494494',
     clientSecret: 'fc15d2456786087d3697caacab380abb15eca2be',
-    callbackURL: 'https://ourninjas.onrender.com/user/auth/github/callback',
+    callbackURL: 'https://ourninjas.onrender.com/user/auth/google/callback',
     scope: ['user:email'],
 
 },
