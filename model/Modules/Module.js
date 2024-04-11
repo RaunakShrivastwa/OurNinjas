@@ -16,7 +16,10 @@ const ModuleSchema = new mongoose.Schema({
         ref:'User'
     },
     milestone:{type:Number},
-    enrollCourse:{type:String,required:true}
+    enrollCourse:{type:String,required:true},
+    pdf:{
+        type:String
+    }
 },{timestamps:true});
 
 const Modules = mongoose.model("Module",ModuleSchema);
