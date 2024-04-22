@@ -87,7 +87,7 @@ export default class CourseController {
 
     async getUpcomingCourse(req,res){
         try{
-            const course = await Course.find({status:'pending'});
+            const course = await Course.find({status:'pending'}).sort('-createdAt');
             return res.status(200).json(course);
         }catch(err){
             return console.log("There is Error ",err);

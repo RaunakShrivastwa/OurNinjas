@@ -18,4 +18,31 @@ export default class ChapterController{
             return console.log("There is Error While Creating Chapter",err);
         }
     }
+
+    updateChapter = async (req, res) => {
+        try {
+            const updateChapter = await Chapter.findByIdAndUpdate(req.params.id, {
+                $set: {
+                    name: req.body.name,
+                    desc: req.body.desc
+                }
+            })
+            return res.json(updateChapter);
+        } catch (err) {
+            return console.log("There is Error While Updating Chapter", err);
+        }
+    }
+
+    showChapterById = async (req, res) => {
+        try {
+             if(req.params.id){
+                const getChapter = await Chapter.findById(req.params.id).populate('SubTopic');
+               return res.json(getChapter);
+             }
+        } catch (error) {
+            return console.log("There is Error While getting Chapter ID", error);
+        }
+    }
+
+
 }

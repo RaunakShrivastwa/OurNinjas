@@ -24,9 +24,9 @@ export default class userController {
             userAddress,
             userProof,
             userBio,
-            userRole:'student',
             enroll,
-            profile
+            profile,
+            status:'student'
         }
 
         console.log(data);
@@ -120,7 +120,7 @@ export default class userController {
     // Fetch single User
     fetchSingleUser = async (req, res) => {
         try{
-            return res.json(await User.findOne({userEmail:req.params.userEmail}))
+            return res.json(await User.findOne({userEmail:req.params.userEmail}).populate('courses'))
         }catch(err){
             return console.log("There is Error while Fetching Single User",err);
         }

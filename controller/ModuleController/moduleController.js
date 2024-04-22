@@ -35,15 +35,33 @@ export default class moduleController{
                     milestone:req.body.milestone
                 }).populate('chapter'))
         }catch(err){
-            return console.log("There is Error While Fetching Single Module",err);
+            return console.log("There is Error While Fetching Single Module xxxx",err);
         }
     }
 
     getSingleModuleById = async (req,res)=>{
-        try{
-             return res.json(await Modules.findById(req.params.id).populate('mentor').populate('chapter'))
+        try{ 
+            if(req.params.id){
+               return res.json(await Modules.findById(req.params.id).populate('mentor').populate('chapter'))
+           }
+           return;
         }catch(err){
-            return console.log("There is Error While Fetching Single Module",err);
+            return console.log("There is Error While Fetching Single Module ccccccccc",err);
+        }
+    }
+
+    updateModuleById = async (req, res) => {
+        try {
+            const updateCourse = await Modules.findByIdAndUpdate(req.params.id, {
+                $set: {
+                    name: req.body.name,
+                    desc: req.body.desc
+                }
+            })
+            console.log(updateCourse);
+            return res.json(updateCourse);
+        } catch (err) {
+            return console.log("There isn error durning update the module");
         }
     }
 
@@ -53,6 +71,15 @@ export default class moduleController{
             
         }catch(err){
             return console.log("There is Error while Delete Modlue",err);
+        }
+    }
+
+    getModuleofTeacher = async (req,res)=>{
+        try{
+             const modules = await Modules.find({mentor:req.params.id});
+             return res.json(modules)
+        }catch(err){
+            return console.log("There is Error ",err);
         }
     }
 }

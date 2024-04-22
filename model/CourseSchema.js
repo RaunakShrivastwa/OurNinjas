@@ -50,6 +50,10 @@ const CourseSchema = new mongoose.Schema({
     status:{
         type:String
     },
+    startDate:{
+        type:String,
+        required:true
+    },
 }, {
     timestamps: true
 })
