@@ -24,7 +24,8 @@ export default class ChapterController{
             const updateChapter = await Chapter.findByIdAndUpdate(req.params.id, {
                 $set: {
                     name: req.body.name,
-                    desc: req.body.desc
+                    desc: req.body.desc,
+                    video_url:req.body.video_url
                 }
             })
             return res.json(updateChapter);

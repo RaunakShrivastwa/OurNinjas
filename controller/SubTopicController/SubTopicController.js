@@ -32,4 +32,30 @@ export default class SubTopicController{
             return console.log("THere us Error ",err);
         }
     }
+
+    getTopicNow = async (req,res)=>{
+        try{
+            const topic  = await SubTopic.find({TopicName:req.params.name});
+            return res.json(topic)
+        }catch(err){
+            return console.log("There is Error ",err);
+        }
+    }
+
+    updateTopic = async (req, res) => {
+        console.log(req.body);
+        try {
+            const updateTopic = await SubTopic.findByIdAndUpdate(req.params.id, {
+                $set: {
+                    TopicName: req.body.TopicName,
+                    desc: req.body.desc,
+                    Chapter:req.body.chapter,
+                    video_URL:req.body.video_URL
+                }
+            })
+            return res.json(updateTopic);
+        } catch (err) {
+            return console.log("There is Error While Updating Chapter", err);
+        }
+    }
 }

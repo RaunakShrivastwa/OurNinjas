@@ -42,7 +42,13 @@ export default class CourseController {
 
     async getCourseByName(req, res) {
         try {
-            const courseInfo = await Course.findOne({ name: req.params.courseName }).populate('modules');
+            const courseInfo = await Course.findOne({ name: req.params.courseName }).populate({
+                path:'modules',
+                populate:{
+                    path:'mentor',
+                    select: 'userName'
+                }
+            });
             if (courseInfo) {
                 return res.json({
                     "message": "Course fetch successfully ..... ",

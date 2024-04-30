@@ -7,6 +7,7 @@ export default class moduleController{
         try{
             const course = await Course.findOne({name:req.body.enrollCourse});
             if(course){
+                console.log(req.body);
                 const module = await Modules.create(req.body);
                 course.modules.push(module);
                 course.save();
@@ -55,7 +56,9 @@ export default class moduleController{
             const updateCourse = await Modules.findByIdAndUpdate(req.params.id, {
                 $set: {
                     name: req.body.name,
-                    desc: req.body.desc
+                    desc: req.body.desc,
+                    mentor:req.body.mentor,
+                    pdf: req.body.pdf
                 }
             })
             console.log(updateCourse);
