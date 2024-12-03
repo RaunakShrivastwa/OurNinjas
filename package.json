@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cantech_backend": "file:",
     "cloudinary": "^2.0.3",
     "connect-mongo": "^5.1.0",
     "cookie": "^0.6.0",
